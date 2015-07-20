@@ -26,7 +26,10 @@ lsyncd processes to run concurrently and as different users.
 include ::lsyncd
 
 lsyncd::process { 'puppet':
-  config => template('path/to/
+  content => template('path/to/template.erb'),
+  owner   => 'puppet',
+  group   => 'puppet',
+}
 
 ```
 ##Limitations
