@@ -1,6 +1,6 @@
 {
   "name": "spjmurray-lsyncd",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "author": "Simon Murray",
   "license": "GPL-3.0",
   "summary": "Lsyncd orchestration",
