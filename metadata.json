@@ -1,0 +1,18 @@
+{
+  "name": "spjmurray-lsyncd",
+  "version": "1.0.0",
+  "author": "Simon Murray",
+  "license": "GPL-3.0",
+  "summary": "Lsyncd orchestration",
+  "source": "https://github.com/spjmurray/puppet-lsyncd",
+  "project_page": "https://github.com/spjmurray/puppet-lsyncd",
+  "issues_url": "https://github.com/spjmurray/puppet-lsyncd/issues",
+  "tags": ["lsyncd"],
+  "operatingsystem_support": [
+    {
+      "operatingsystem": "Ubuntu",
+      "operatingsystemrelease": [ "14.04", "14.10", "15.04" ]
+    }
+  ],
+  "dependencies": []
+}
