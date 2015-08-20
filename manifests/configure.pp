@@ -6,11 +6,18 @@ class lsyncd::configure {
     ensure => directory,
     owner  => 'root',
     group  => 'root',
-    mode   => '0755',
   }
 
-  file { $lsyncd::confdir: }
-  file { $lsyncd::rundir: }
-  file { $lsyncd::logdir: }
+  file { $lsyncd::confdir:
+    mode => '0755',
+  }
+
+  file { $lsyncd::rundir:
+    mode => '0777',
+  }
+
+  file { $lsyncd::logdir:
+    mode => '0777',
+  }
 
 }
