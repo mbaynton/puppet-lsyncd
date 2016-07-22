@@ -50,7 +50,7 @@ define lsyncd::process (
 
   service { "lsyncd-${name}":
     ensure   => running,
-    provider => 'init',
+    provider => 'debian',
     start    => "sudo -u ${owner} ${process}",
     status   => "pgrep -f '^${process}$'",
     stop     => "pkill --signal KILL -f '^${process}$'",
