@@ -2,17 +2,38 @@
   "name": "spjmurray-lsyncd",
   "version": "1.0.1",
   "author": "Simon Murray",
-  "license": "GPL-3.0",
   "summary": "Lsyncd orchestration",
+  "license": "GPL-3.0",
   "source": "https://github.com/spjmurray/puppet-lsyncd",
   "project_page": "https://github.com/spjmurray/puppet-lsyncd",
   "issues_url": "https://github.com/spjmurray/puppet-lsyncd/issues",
-  "tags": ["lsyncd"],
   "operatingsystem_support": [
     {
       "operatingsystem": "Ubuntu",
-      "operatingsystemrelease": [ "14.04", "14.10", "15.04" ]
+      "operatingsystemrelease": [
+        "14.04",
+        "14.10",
+        "15.04",
+        "16.04"
+      ]
     }
   ],
-  "dependencies": []
+  "dependencies": [
+    {
+      "name": "camptocamp/systemd",
+      "version_requirement": ">= 2.2.0 < 3.0.0"
+    }
+  ],
+  "requirements": [
+    {
+      "name": "puppet",
+      "version_requirement": ">= 4.10.0 < 7.0.0"
+    }
+  ],
+  "tags": [
+    "lsyncd"
+  ],
+  "pdk-version": "1.10.0",
+  "template-url": "file:///opt/puppetlabs/pdk/share/cache/pdk-templates.git#1.10.0",
+  "template-ref": "1.10.0-0-gbba9ac3"
 }
