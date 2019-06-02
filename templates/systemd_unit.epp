@@ -1,0 +1,16 @@
+<%- | String $name,
+      String $lsyncd_path,
+      String $user,
+      String $lua_file
+| -%>
+[Unit]
+Description=Live Syncing (Mirror) Daemon - <%= $name %>
+After=network.target
+
+[Service]
+Type=simple
+User=<%= $user %>
+ExecStart=/usr/bin/lsyncd -nodaemon <%= $lua_file %>
+
+[Install]
+WantedBy=multi-user.target

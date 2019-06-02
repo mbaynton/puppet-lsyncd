@@ -20,10 +20,11 @@
 #   Group of the config file
 #
 define lsyncd::process (
-  $source  = undef,
-  $content = undef,
-  $owner   = 'root',
-  $group   = 'root',
+  $source           = undef,
+  $content          = undef,
+  $owner            = 'root',
+  $group            = 'root',
+  $systemd_template = 'lsyncd/systemd_unit.epp',
 ) {
 
   include lsyncd
@@ -37,8 +38,6 @@ define lsyncd::process (
   }
 
   $cfgfile = "${lsyncd::confdir}/${name}.lua"
-  $process = "lsyncd ${cfgfile}"
-
   file { $cfgfile:
     ensure  => file,
     owner   => $owner,
@@ -46,14 +45,39 @@ define lsyncd::process (
     mode    => '0644',
     source  => $source,
     content => $content,
-  } ~>
-
-  service { "lsyncd-${name}":
-    ensure   => running,
-    provider => 'debian',
-    start    => "sudo -u ${owner} ${process}",
-    status   => "pgrep -f '^${process}$'",
-    stop     => "pkill --signal KILL -f '^${process}$'",
   }
 
+  if ($facts['systemd']) {
+    $process = $facts['os']['family'] ? {
+      'RedHat' => '/bin/lsyncd',
+      default  => '/usr/local/bin/lsyncd'
+    }
+
+    $template_hash = {
+      'name'        => $name,
+      'lsyncd_path' => $process,
+      'user'        => $owner,
+      'lua_file'    => $cfgfile,
+    }
+    systemd::unit_file { "lsyncd-${name}.service":
+      content => epp($systemd_template, $template_hash)
+    }
+    ~>
+    service { "lsyncd-${name}":
+      ensure => 'running',
+      enable => true,
+    }
+  } else {
+    $process = "lsyncd ${cfgfile}"
+
+    service { "lsyncd-${name}":
+      ensure   => running,
+      provider => 'debian',
+      start    => "sudo -u ${owner} ${process}",
+      status   => "pgrep -f '^${process}$'",
+      stop     => "pkill --signal KILL -f '^${process}$'",
+      require  => File[$cfgfile]
+    }
+
+  }
 }
